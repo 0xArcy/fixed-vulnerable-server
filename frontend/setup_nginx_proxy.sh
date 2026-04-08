@@ -14,6 +14,11 @@ if [ -z "$SERVICE_TOKEN" ]; then
 fi
 
 apt-get update
+# Stop and kill legacy apache2 if it exists taking up port 80/443
+systemctl stop apache2 || true
+systemctl disable apache2 || true
+apt-get remove -y apache2
+
 apt-get install -y nginx openssl ufw
 
 # Secure Firewall
@@ -49,7 +54,7 @@ server {
 }
 
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name _;
 
     ssl_certificate /etc/ssl/modernbank/frontend.crt;
@@ -62,7 +67,6 @@ server {
 
     location /api/ {
         proxy_pass https://$BACKEND_IP/;
-        proxy_ssl_verify off;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
