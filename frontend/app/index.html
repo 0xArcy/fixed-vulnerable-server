@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Modern Bank Secure Portal</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="ambient"></div>
+<main class="shell">
+    <section class="brand-panel">
+        <img src="/assets/modernbank-mark.svg" alt="Modern Bank mark" class="mark">
+        <h1>Modern Bank</h1>
+        <p class="subtitle">Encrypted operations dashboard with tokenized data storage.</p>
+        <ul class="stack-meta">
+            <li>TLS edge: enabled</li>
+            <li>Backend auth: service token + JWT</li>
+            <li>Database transport: MongoDB TLS</li>
+        </ul>
+    </section>
+
+    <section class="content-panel">
+        <article id="loginCard" class="card">
+            <h2>Sign In</h2>
+            <p class="muted">Use your secure session to access tokenized records.</p>
+            <form id="loginForm" class="stack">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" placeholder="julia.ross" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required>
+
+                <button type="submit">Authenticate</button>
+            </form>
+            <p id="loginMessage" class="feedback"></p>
+        </article>
+
+        <article id="dashboardCard" class="card hidden">
+            <header class="dashboard-head">
+                <div>
+                    <h2>Secure Operations</h2>
+                    <p id="welcomeText" class="muted"></p>
+                </div>
+                <button id="logoutBtn" class="ghost">Logout</button>
+            </header>
+
+            <div class="status-grid">
+                <div class="status-card">
+                    <h3>API Health</h3>
+                    <p id="apiStatus">Checking...</p>
+                </div>
+                <div class="status-card">
+                    <h3>Database Link</h3>
+                    <p id="dbStatus">Checking...</p>
+                </div>
+                <div class="status-card">
+                    <h3>Tokenization Sample</h3>
+                    <p id="tokenSample">Loading...</p>
+                </div>
+            </div>
+
+            <section class="records-panel">
+                <h3>Create Tokenized Record</h3>
+                <form id="recordForm" class="stack compact">
+                    <label for="recordLabel">Label</label>
+                    <input id="recordLabel" name="label" type="text" maxlength="120" placeholder="Primary Checking" required>
+
+                    <label for="accountNumber">Account Number</label>
+                    <input id="accountNumber" name="accountNumber" type="text" maxlength="32" placeholder="1234-5678-9012-3456" required>
+
+                    <label for="recordNote">Sensitive Note</label>
+                    <input id="recordNote" name="note" type="text" maxlength="256" placeholder="Optional sensitive value">
+
+                    <button type="submit">Tokenize And Save</button>
+                </form>
+                <p id="recordMessage" class="feedback"></p>
+            </section>
+
+            <section class="records-panel">
+                <h3>Stored Records</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Label</th>
+                            <th>Last 4</th>
+                            <th>Token</th>
+                            <th>Created</th>
+                        </tr>
+                        </thead>
+                        <tbody id="recordsBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </section>
+</main>
+<script src="/app.js" defer></script>
+</body>
+</html>
